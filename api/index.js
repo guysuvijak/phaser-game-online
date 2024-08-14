@@ -9,7 +9,6 @@ const prepare = (app) => {
     const server = createServer(app);
     io = new Server(server, {
         path: '/socket.io',
-        transports: ['websocket', 'polling'],
         cors: {
             origin: '*',
             methods: ['GET', 'POST']
