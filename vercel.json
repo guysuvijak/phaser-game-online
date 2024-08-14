@@ -6,6 +6,7 @@
   ],
   "routes": [
     { "src": "/socket.io/(.*)", "dest": "api/index.js" },
-    { "src": "/(.*)", "dest": "api/index.js" }
+    { "src": "/api/(.*)", "dest": "api/index.js" },
+    { "src": "/(.*)", "dest": "public/$1" }
   ]
 }

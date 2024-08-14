@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { Server } = require('socket.io');
 
 const app = express();
@@ -9,15 +10,11 @@ const port = process.env.PORT || 3000;
 
 let players = {};
 
-app.get('/favicon.ico', (req, res) => res.status(204));
+app.use(express.static(path.join(__dirname, '../public')));
 
-app.use(express.static('public', {
-    setHeaders: (res, path, stat) => {
-      if (path.endsWith('.js')) {
-        res.set('Content-Type', 'application/javascript');
-      }
-    }
-}));
+app.get('/', (_, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
