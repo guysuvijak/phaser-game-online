@@ -6,14 +6,12 @@ const app = express();
 const server = require('http').createServer(app);
 const io = new Server(server, {
     path: '/socket.io',
-    transports: ['polling', 'websocket'],
+    transports: ['websocket', 'polling'],
     cors: {
-      origin: '*',
-      methods: ['GET', 'POST']
+        origin: '*',
+        methods: ['GET', 'POST']
     },
-    allowEIO3: true,
-    pingTimeout: 60000,
-    pingInterval: 25000
+    allowEIO3: true
 });
 
 const port = process.env.PORT || 3000;
