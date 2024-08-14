@@ -3,9 +3,11 @@ const { createServer } = require('http');
 const path = require('path');
 const { Server } = require('socket.io');
 
+let io;
+
 const prepare = (app) => {
     const server = createServer(app);
-    const io = new Server(server, {
+    io = new Server(server, {
         path: '/socket.io',
         transports: ['websocket', 'polling'],
         cors: {
