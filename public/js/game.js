@@ -1,5 +1,5 @@
 const socket = io(window.location.origin, {
-    transports: ['websocket', 'polling']
+    path: '/socket.io'
 });
 
 class MainScene extends Phaser.Scene {

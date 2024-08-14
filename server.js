@@ -1,12 +1,9 @@
 const express = require('express');
-const { createServer } = require('http');
 const { Server } = require('socket.io');
 
 const app = express();
-const httpServer = createServer(app);
-const io = new Server(httpServer, {
-    path: '/socket.io'
-});
+const server = require('http').createServer(app);
+const io = new Server(server);
 
 const port = process.env.PORT || 3000;
 
@@ -68,9 +65,9 @@ io.on('connection', (socket) => {
 });
 
 if (process.env.NODE_ENV !== 'production') {
-    httpServer.listen(port, () => {
+    server.listen(port, () => {
         console.log(`Server running on port ${port}`);
     });
 }
 
-module.exports = app;
+module.exports = server;
