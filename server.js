@@ -1,17 +1,26 @@
 const express = require('express');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
-const path = require('path');
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+    path: '/socket.io'
+});
 
 const port = process.env.PORT || 3000;
 
 let players = {};
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.get('/favicon.ico', (req, res) => res.status(204));
+
+app.use(express.static('public', {
+    setHeaders: (res, path, stat) => {
+      if (path.endsWith('.js')) {
+        res.set('Content-Type', 'application/javascript');
+      }
+    }
+}));
 
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);

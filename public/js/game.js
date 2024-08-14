@@ -1,4 +1,6 @@
-const socket = io(window.location.origin);
+const socket = io(window.location.origin, {
+    transports: ['websocket', 'polling']
+});
 
 class MainScene extends Phaser.Scene {
     constructor() {
